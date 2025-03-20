@@ -8,6 +8,11 @@ const printDateInFooter = function () {
 
 printDateInFooter()
 
+const hideSpinner = function () {
+  const div = document.getElementById('spinner-container')
+  div.classList.add('d-none')
+}
+
 // funzione che recupera dalle API gli eventi attualmente nel DB
 // in modo da generare nell'HTML le col con le card corrispondenti
 const getEvents = function () {
@@ -35,9 +40,34 @@ const getEvents = function () {
       }
     })
     .then((data) => {
+      hideSpinner() // nascondo lo spinner
       console.log('DATI RICEVUTI DAL SERVER', data)
+
+      // prendo un riferimento alla row definita in HTML
+      const row = document.getElementById('events-row')
+      // ora devo ciclare l'array "data" e per ogni oggetto (concerto) devo creare
+      // una colonna con dentro una card
+
+      data.forEach((concert) => {
+        row.innerHTML =
+          row.innerHTML +
+          `
+          <div class="col col-12 col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+              <img src="https://visitcastelsaraceno.info/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-30-at-10.11.50-1.jpeg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">${concert.name}</h5>
+                <p class="card-text">${concert.description}</p>
+                <p class="card-text">${concert.price}€ - ${concert.time}</p>
+                <a href="./details.html?id=${concert._id}" class="btn btn-primary">Vai ai dettagli</a>
+              </div>
+            </div>
+          </div>
+        `
+      })
     })
     .catch((error) => {
+      hideSpinner() // nascondo lo spinner
       console.log('si è verificato un errore', error)
     })
 }

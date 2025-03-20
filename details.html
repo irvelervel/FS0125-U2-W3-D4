@@ -58,59 +58,28 @@
     </header>
     <main class="flex-grow-1">
       <h1 class="text-center">EpiTicket One</h1>
-      <h2 class="text-center">Amministrazione</h2>
+      <h2 class="text-center">Dettagli concerto</h2>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col col-12 col-lg-6 col-md-8">
-            <form class="my-3" id="event-form">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nome concerto</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  required
-                  id="name"
-                  aria-describedby="nameHelp"
-                  placeholder="Al Bano in Arena"
-                />
+            <div class="card">
+              <img
+                src="https://visitcastelsaraceno.info/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-30-at-10.11.50-1.jpeg"
+                class="card-img-top"
+                alt="personaggio-famoso-qui"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <div class="text-center">
+                  <a href="#" class="btn btn-warning">Modifica evento</a>
+                  <a href="#" class="btn btn-danger">Elimina evento</a>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="description" class="form-label"
-                  >Descrizione concerto</label
-                >
-                <textarea
-                  class="form-control"
-                  required
-                  id="description"
-                  aria-describedby="descriptionHelp"
-                  placeholder="Evento imperdibile, nostalgia appalla!"
-                  rows="5"
-                ></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="price" class="form-label">Prezzo biglietto</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  required
-                  id="price"
-                  aria-describedby="priceHelp"
-                  placeholder="10"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="time" class="form-label">Data/ora concerto</label>
-                <input
-                  type="datetime-local"
-                  class="form-control"
-                  required
-                  id="time"
-                  aria-describedby="timeHelp"
-                  placeholder="10"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Crea!</button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -123,6 +92,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="./scripts/backoffice.js"></script>
+    <script src="./scripts/details.js"></script>
   </body>
 </html>
