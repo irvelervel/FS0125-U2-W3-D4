@@ -58,8 +58,12 @@ const getEvents = function () {
               <div class="card-body">
                 <h5 class="card-title">${concert.name}</h5>
                 <p class="card-text">${concert.description}</p>
-                <p class="card-text">${concert.price}€ - ${concert.time}</p>
-                <a href="./details.html?id=${concert._id}" class="btn btn-primary">Vai ai dettagli</a>
+                <p class="card-text">${concert.price}€ - ${new Date(
+            concert.time
+          ).toLocaleString()}</p>
+                <a href="./details.html?id=${
+                  concert._id
+                }" class="btn btn-primary">Vai ai dettagli</a>
               </div>
             </div>
           </div>

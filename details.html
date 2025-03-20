@@ -68,15 +68,17 @@
                 class="card-img-top"
                 alt="personaggio-famoso-qui"
               />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+              <div class="card-body text-center">
+                <h5 class="card-title" id="name"></h5>
+                <p class="card-text" id="description"></p>
+                <p class="card-text" id="price-time"></p>
                 <div class="text-center">
-                  <a href="#" class="btn btn-warning">Modifica evento</a>
-                  <a href="#" class="btn btn-danger">Elimina evento</a>
+                  <button onclick="editConcert()" class="btn btn-warning">
+                    Modifica evento
+                  </button>
+                  <button onclick="deleteConcert()" class="btn btn-danger">
+                    Elimina evento
+                  </button>
                 </div>
               </div>
             </div>

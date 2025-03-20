@@ -16,6 +16,46 @@ class Concert {
   }
 }
 
+// ora la pagina Backoffice serve un duplice scopo... può:
+// - creare un concerto nuovo
+// - modificare un concerto esistente
+// da cosa capisco se sono in modalità "CREA" o in modalità "MODIFICA"?
+// dal fatto che abbia o meno un "id" come parametro nella barra degli indirizzi
+const URLparameters = new URLSearchParams(location.search)
+const eventId = URLparameters.get('id')
+
+// prendiamo i riferimenti ai 4 input del form
+const nameInput = document.getElementById('name')
+const descriptionInput = document.getElementById('description')
+const priceInput = document.getElementById('price')
+const timeInput = document.getElementById('time')
+
+const eventsURL = 'https://striveschool-api.herokuapp.com/api/agenda'
+
+// eventId è una stringa se sono in modalità MODIFICA
+// eventId è null se sono in modalità CREA
+if (eventId) {
+  // MODALITÀ MODIFICA
+  // ripopolo i campi del form con i dati esistenti
+  fetch(eventsURL + '/' + eventId)
+    .then((response) => {
+      if (response.ok) {
+        return response.json() // recupero il contenuto del JSON con una seconda Promise
+      } else {
+        throw new Error('errore nella fetch')
+      }
+    })
+    .then((data) => {
+      // data è l'oggetto corrispondente all'id da modificare
+      // riempire i campi del form con i valori di data
+      nameInput.value = data.name
+      descriptionInput.value = data.description
+      priceInput.value = data.price
+      timeInput.value = data.time.split('.')[0] // tolto il '.000Z' dalla stringa
+    })
+    .catch((err) => console.log('ERRORE DEL RIPOPOLAMENTO DEL FORM', err))
+}
+
 // il mio backender di fiducia mi ha detto che un oggetto "evento" è fatto così:
 // ci sono 4 proprietà:
 // - name -> string
@@ -29,11 +69,6 @@ class Concert {
 const form = document.getElementById('event-form')
 form.addEventListener('submit', function (e) {
   e.preventDefault()
-  // prendiamo i riferimenti ai 4 input del form
-  const nameInput = document.getElementById('name')
-  const descriptionInput = document.getElementById('description')
-  const priceInput = document.getElementById('price')
-  const timeInput = document.getElementById('time')
 
   const concert = new Concert(
     nameInput.value,
@@ -48,10 +83,19 @@ form.addEventListener('submit', function (e) {
   // nota positiva: in un'API di tipo RESTFUL, l'URL su cui fate la GET generica
   // è anche l'URL per fare una POST!
 
-  const eventsURL = 'https://striveschool-api.herokuapp.com/api/agenda'
+  let methodToUse
+  let URLtoUse
 
-  fetch(eventsURL, {
-    method: 'POST', // metodo post per creazione nuovo evento
+  if (eventId) {
+    methodToUse = 'PUT'
+    URLtoUse = eventsURL + '/' + eventId
+  } else {
+    methodToUse = 'POST'
+    URLtoUse = eventsURL
+  }
+
+  fetch(URLtoUse, {
+    method: methodToUse, // metodo post per creazione nuovo evento
     body: JSON.stringify(concert), // oggetto concert convertito in stringa JSON
     headers: {
       // se l'API richiedesse un'autorizzazione, la mettereste qui dentro
